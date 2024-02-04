@@ -233,13 +233,14 @@ if __name__ == '__main__':
 
         for input_path in os.listdir(input_dir):
             if("npy" in osp.splitext(input_path)[1]):
+                print(input_path)
                 fileindices.append(int(osp.splitext(input_path)[0].split(prefix)[-1]))
                 input_paths.append(input_path)
 
         fileindices = np.array(fileindices)
+        input_paths = np.array(input_paths)
         input_paths = input_paths[np.argsort(fileindices)]
-
-        print(fileindices)
+        input_paths = list(input_paths)
 
         count = 0
         file_count = len([name for name in os.listdir(input_dir) if "npy" in osp.splitext(name)[1]])
