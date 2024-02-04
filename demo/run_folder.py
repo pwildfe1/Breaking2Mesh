@@ -258,8 +258,10 @@ if __name__ == '__main__':
                 pose_vis_img = vis_2d_keypoints(tmpimg, tmpkps, skeleton)
                 cv2.imwrite(output_path + f'demo_pose2d.png', pose_vis_img)
 
+                prediction_3d = out['prediction_3d'].cpu()
+
                 save_obj(out['mesh'], mesh_model.face, output_path + osp.splitext(input_path)[0] + '-mesh.obj')
-                np.save(output_path + osp.splitext(input_path)[0] + '-position.npy', out['prediction_3d'].cpu().numpy())
+                np.save(output_path + osp.splitext(input_path)[0] + '-position.npy', prediction_3d.detach().numpy())
 
                 count = count + 1
     else:
