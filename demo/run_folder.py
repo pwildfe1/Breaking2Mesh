@@ -234,12 +234,12 @@ if __name__ == '__main__':
                 
                 joint_input = np.load(input_dir + "/" + input_path)
 
-                # if args.input_img != '.':
-                #     orig_img = cv2.imread(input_path)
-                #     orig_width, orig_height = orig_img.shape[:2]
-                # else:
-                #     orig_width, orig_height = int(np.max(joint_input[:, 0]) * 1.5), int(np.max(joint_input[:, 1]) * 1.5)
-                #     orig_img = np.zeros((orig_height, orig_width,3))
+                if args.input_img != '.':
+                    orig_img = cv2.imread(input_path)
+                    orig_width, orig_height = orig_img.shape[:2]
+                else:
+                    orig_width, orig_height = int(np.max(joint_input[:, 0]) * 1.5), int(np.max(joint_input[:, 1]) * 1.5)
+                    orig_img = np.zeros((orig_height, orig_width,3))
 
                 out = optimize_cam_param(project_net, joint_input, crop_size=virtual_crop_size)
 
