@@ -228,7 +228,10 @@ if __name__ == '__main__':
 
         for input_path in os.listdir(input_dir):
 
-            if(osp.splitext(input_path)[1] == "npy"):
+            if("npy" in osp.splitext(input_path)[1]):
+
+                print(input_path)
+                
                 joint_input = np.load(input_dir + "/" + input_path)
 
                 # if args.input_img != '.':
