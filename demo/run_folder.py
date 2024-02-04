@@ -191,7 +191,7 @@ def optimize_cam_param(project_net, joint_input, crop_size):
     out['mesh'] = pred_mesh[0].detach().cpu().numpy()
     out['cam_param'] = project_net.cam_param[0].detach().cpu().numpy()
     out['bbox'] = bbox1
-
+    out['prediction_3d'] = pred_3d_joint
     out['target'] = proj_target_joint_img
 
     return out
@@ -228,7 +228,7 @@ if __name__ == '__main__':
 
         for input_path in os.listdir(input_dir):
 
-            if(os.splitext(input_path)[1] == "npy"):
+            if(osp.splitext(input_path)[1] == "npy"):
                 joint_input = np.load(input_dir + "/" + input_path)
 
                 # if args.input_img != '.':
@@ -252,6 +252,7 @@ if __name__ == '__main__':
                 pose_vis_img = vis_2d_keypoints(tmpimg, tmpkps, skeleton)
                 cv2.imwrite(output_path + f'demo_pose2d.png', pose_vis_img)
 
-                save_obj(out['mesh'], mesh_model.face, output_path + os.splitext(input_path)[0] + '-mesh.obj')
+                save_obj(out['mesh'], mesh_model.face, output_path + osp.splitext(input_path)[0] + '-mesh.obj')
+                np.save(output_path + osp.splitext(input_path)[0] + '-position.npy', out['prediction_3d'].numpy())
     else:
-        print("--input_dir MUST BE SPECIFIED")
+        print("--input_dir MUST EXIST")
