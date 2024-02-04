@@ -243,7 +243,11 @@ if __name__ == '__main__':
 
         fileindices = np.array(fileindices)
         input_paths = np.array(input_paths)
-        input_paths = input_paths[np.argsort(fileindices)]
+        end_frame = start_frame + frame_count + 1
+        if end_frame < input_paths.shape[0]:
+            input_paths = input_paths[np.argsort(fileindices)[start_frame:(start_frame + frame_count + 1)]]
+        else:
+            input_paths = input_paths[np.argsort(fileindices)[start_frame:]]
         input_paths = list(input_paths)
 
         count = 0
