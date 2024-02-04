@@ -239,7 +239,7 @@ if __name__ == '__main__':
         # vis mesh
         color = colorsys.hsv_to_rgb(np.random.rand(), 0.5, 1.0)
         # rendered_img = render(out, orig_height, orig_width, orig_img, mesh_model.face, color)  # s[idx])
-        cv2.imwrite(output_path + f'demo_mesh.png', rendered_img)
+        # cv2.imwrite(output_path + f'demo_mesh.png', rendered_img)
 
         # vis 2d pose
         tmpkps = np.zeros((3, len(joint_input)))
