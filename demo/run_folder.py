@@ -203,12 +203,14 @@ if __name__ == '__main__':
     parser.add_argument('--input_dir', type=str, default='demo/input_frames', help='path of input 2D pose')
     parser.add_argument('--input_img', type=str, default='.', help='path of input image')
     parser.add_argument('--joint_set', type=str, default='coco', help='choose the topology of input 2D pose from [human36, coco, smpl, mano]')
+    parser.add_argument('--prefix', type=str. default='frame', help='use prefix to split up files and organize by number')
 
     args = parser.parse_args()
     os.environ['CUDA_VISIBLE_DEVICES'] = str(args.gpu)
     virtual_crop_size = 500
     joint_set = args.joint_set
     input_dir = args.input_dir
+    prefix = args.prefix
     output_path = './demo/result/'
     cfg.DATASET.target_joint_set = joint_set
     cfg.MODEL.posenet_pretrained = False
@@ -226,10 +228,27 @@ if __name__ == '__main__':
         # get camera parameters
         project_net = models.project_net.get_model(crop_size=virtual_crop_size).cuda()
 
+        fileindices = []
+        input_paths = []
+
+        for input_path in os.listdir(input_dir):
+            if("npy" in osp.splitext(input_path)[1]):
+                fileindices.append(int(osp.splitext(input_path)[0].split(prefix)[-1]))
+                input_paths.append(input_path)
+
+        fileindices = np.array(fileindices)
+        input_paths = input_paths[np.argsort(fileindices)]
+
+        print(fileindices)
+
         count = 0
         file_count = len([name for name in os.listdir(input_dir) if "npy" in osp.splitext(name)[1]])
 
-        for input_path in os.listdir(input_dir):
+        for input_path in input_paths:
+
+            if count > 100:
+
+                break
 
             if("npy" in osp.splitext(input_path)[1]):
 
