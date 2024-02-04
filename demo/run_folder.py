@@ -257,7 +257,7 @@ if __name__ == '__main__':
 
             if("npy" in osp.splitext(input_path)[1]):
 
-                print(str(int(count/file_count * 1000)/1000*100) + "%")
+                print(str(int(count/frame_count * 1000)/1000*100) + "%")
                 
                 joint_input = np.load(input_dir + "/" + input_path)
 
