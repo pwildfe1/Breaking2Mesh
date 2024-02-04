@@ -203,7 +203,7 @@ if __name__ == '__main__':
     parser.add_argument('--input_dir', type=str, default='demo/input_frames', help='path of input 2D pose')
     parser.add_argument('--input_img', type=str, default='.', help='path of input image')
     parser.add_argument('--joint_set', type=str, default='coco', help='choose the topology of input 2D pose from [human36, coco, smpl, mano]')
-    parser.add_argument('--prefix', type=str. default='frame', help='use prefix to split up files and organize by number')
+    parser.add_argument('--prefix', type=str, default='frame', help='use prefix to split up files and organize by number')
 
     args = parser.parse_args()
     os.environ['CUDA_VISIBLE_DEVICES'] = str(args.gpu)
