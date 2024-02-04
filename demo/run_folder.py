@@ -259,7 +259,7 @@ if __name__ == '__main__':
                 cv2.imwrite(output_path + f'demo_pose2d.png', pose_vis_img)
 
                 save_obj(out['mesh'], mesh_model.face, output_path + osp.splitext(input_path)[0] + '-mesh.obj')
-                np.save(output_path + osp.splitext(input_path)[0] + '-position.npy', out['prediction_3d'].numpy())
+                np.save(output_path + osp.splitext(input_path)[0] + '-position.npy', out['prediction_3d'].cpu().numpy())
 
                 count = count + 1
     else:
