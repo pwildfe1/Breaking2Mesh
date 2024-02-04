@@ -226,6 +226,7 @@ if __name__ == '__main__':
         # get camera parameters
         project_net = models.project_net.get_model(crop_size=virtual_crop_size).cuda()
 
+        count = 0
         file_count = len([name for name in os.listdir(input_dir) if "npy" in osp.splitext(name)[1]])
 
         for input_path in os.listdir(input_dir):
@@ -259,5 +260,7 @@ if __name__ == '__main__':
 
                 save_obj(out['mesh'], mesh_model.face, output_path + osp.splitext(input_path)[0] + '-mesh.obj')
                 np.save(output_path + osp.splitext(input_path)[0] + '-position.npy', out['prediction_3d'].numpy())
+
+                count = count + 1
     else:
         print("--input_dir MUST EXIST")
