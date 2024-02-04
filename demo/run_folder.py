@@ -226,11 +226,13 @@ if __name__ == '__main__':
         # get camera parameters
         project_net = models.project_net.get_model(crop_size=virtual_crop_size).cuda()
 
+        file_count = len([name for name in os.listdir(input_dir) if "npy" in osp.splitext(name)[1]])
+
         for input_path in os.listdir(input_dir):
 
             if("npy" in osp.splitext(input_path)[1]):
 
-                print(input_path)
+                print(str(int(count/file_count * 1000)/1000*100) + "%")
                 
                 joint_input = np.load(input_dir + "/" + input_path)
 
