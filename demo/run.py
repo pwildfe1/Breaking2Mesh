@@ -16,7 +16,7 @@ from aug_utils import j2d_processing
 from coord_utils import get_bbox, process_bbox
 from funcs_utils import load_checkpoint, save_obj
 from graph_utils import build_coarse_graphs
-from renderer import Renderer
+# from renderer import Renderer
 from vis import vis_2d_keypoints, vis_coco_skeleton
 from _mano import MANO
 from smpl import SMPL
@@ -43,28 +43,28 @@ def convert_crop_cam_to_orig_img(cam, bbox, img_width, img_height):
     return orig_cam
 
 
-def render(result, orig_height, orig_width, orig_img, mesh_face, color):
-    pred_verts, pred_cam, bbox = result['mesh'], result['cam_param'][None, :], result['bbox'][None, :]
+# def render(result, orig_height, orig_width, orig_img, mesh_face, color):
+#     pred_verts, pred_cam, bbox = result['mesh'], result['cam_param'][None, :], result['bbox'][None, :]
 
-    orig_cam = convert_crop_cam_to_orig_img(
-        cam=pred_cam,
-        bbox=bbox,
-        img_width=orig_width,
-        img_height=orig_height
-    )
+#     orig_cam = convert_crop_cam_to_orig_img(
+#         cam=pred_cam,
+#         bbox=bbox,
+#         img_width=orig_width,
+#         img_height=orig_height
+#     )
 
-    # Setup renderer for visualization
-    renderer = Renderer(mesh_face, resolution=(orig_width, orig_height), orig_img=True, wireframe=False)
-    renederd_img = renderer.render(
-        orig_img,
-        pred_verts,
-        cam=orig_cam[0],
-        color=color,
-        mesh_filename=None,
-        rotate=False
-    )
+#     # Setup renderer for visualization
+#     renderer = Renderer(mesh_face, resolution=(orig_width, orig_height), orig_img=True, wireframe=False)
+#     renederd_img = renderer.render(
+#         orig_img,
+#         pred_verts,
+#         cam=orig_cam[0],
+#         color=color,
+#         mesh_filename=None,
+#         rotate=False
+#     )
 
-    return renederd_img
+#     return renederd_img
 
 
 def get_joint_setting(mesh_model, joint_category='human36'):
@@ -238,7 +238,7 @@ if __name__ == '__main__':
 
         # vis mesh
         color = colorsys.hsv_to_rgb(np.random.rand(), 0.5, 1.0)
-        rendered_img = render(out, orig_height, orig_width, orig_img, mesh_model.face, color)  # s[idx])
+        # rendered_img = render(out, orig_height, orig_width, orig_img, mesh_model.face, color)  # s[idx])
         cv2.imwrite(output_path + f'demo_mesh.png', rendered_img)
 
         # vis 2d pose
@@ -312,7 +312,7 @@ if __name__ == '__main__':
 
             # vis mesh
             color = colorsys.hsv_to_rgb(np.random.rand(), 0.5, 1.0)
-            orig_img = render(out, orig_height, orig_width, orig_img, mesh_model.face, color)#s[idx])
+            # orig_img = render(out, orig_height, orig_width, orig_img, mesh_model.face, color)#s[idx])
             cv2.imwrite(output_path + f'{img_name[:-4]}_mesh_{idx}.png', orig_img)
 
             # vis 2d pose
