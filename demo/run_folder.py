@@ -204,12 +204,16 @@ if __name__ == '__main__':
     parser.add_argument('--input_img', type=str, default='.', help='path of input image')
     parser.add_argument('--joint_set', type=str, default='coco', help='choose the topology of input 2D pose from [human36, coco, smpl, mano]')
     parser.add_argument('--prefix', type=str, default='frame', help='use prefix to split up files and organize by number')
+    parser.add_argument('--start_frame', type=int, default=0, help='the start frame')
+    parser.add_argument('--frame_count', type=int, default=100, help='the start frame')
 
     args = parser.parse_args()
     os.environ['CUDA_VISIBLE_DEVICES'] = str(args.gpu)
     virtual_crop_size = 500
     joint_set = args.joint_set
     input_dir = args.input_dir
+    start_frame = args.start_frame
+    frame_count = args.frame_count
     prefix = args.prefix
     output_path = './demo/result/'
     cfg.DATASET.target_joint_set = joint_set
@@ -247,7 +251,7 @@ if __name__ == '__main__':
 
         for input_path in input_paths:
 
-            if count > 100:
+            if count > frame_count - 1:
 
                 break
 
